@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>METODO SHAN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #00c2ff;
+        --primary-glow: rgba(0, 194, 255, 0.5);
+        --success: #00ff88;
+        --success-glow: rgba(0, 255, 136, 0.5);
+        --gold: #ffd700;
+        --bg: #030509;
+        --card-bg: rgba(13, 19, 31, 0.75);
+        --card-border: rgba(0, 194, 255, 0.15);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: var(--bg);
+        color: white;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: 
+            radial-gradient(circle at 50% 10%, rgba(0, 194, 255, 0.15), transparent 50%),
+            radial-gradient(circle at 50% 80%, rgba(0, 255, 136, 0.08), transparent 50%);
+        z-index: -1;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 580px;
+        margin: 0 auto;
+        padding: 30px 16px 40px;
+        text-align: center;
+    }
+
+    .main-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 28px;
+        padding: 32px 20px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 194, 255, 0.08);
+    }
+
+    .logo {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+    }
+
+    .logo span {
+        color: var(--primary);
+        text-shadow: 0 0 20px var(--primary-glow);
+    }
+
+    .tagline-group {
+        margin-bottom: 20px;
+    }
+
+    .tagline-main {
+        font-size: 16px;
+        font-weight: 700;
+        color: #e2e8f0;
+    }
+
+    .highlight-gold {
+        color: var(--gold);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: 14px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    .no-pay-badge {
+        background: linear-gradient(90deg, rgba(0, 255, 136, 0.15), rgba(0, 194, 255, 0.15));
+        border: 1px solid var(--success);
+        color: var(--success);
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+        box-shadow: 0 0 20px var(--success-glow);
+        text-transform: uppercase;
+        animation: pulseBadge 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseBadge {
+        0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--success-glow); }
+        50% { transform: scale(1.03); box-shadow: 0 0 30px rgba(0, 255, 136, 0.6); }
+    }
+
+    .grid-pillars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-bottom: 26px;
+    }
+
+    .pillar-box {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 16px 8px;
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 11px;
+        font-weight: 800;
+        transition: 0.3s;
+    }
+
+    .pillar-box:hover {
+        border-color: var(--primary);
+        background: rgba(0, 194, 255, 0.08);
+    }
+
+    .pillar-box i {
+        display: block;
+        font-size: 22px;
+        margin-bottom: 8px;
+        color: var(--primary);
+    }
+
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        margin: 26px 0;
+    }
+
+    .section-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 16px;
+        margin-bottom: 20px;
+        letter-spacing: 1.5px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .steps-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .step-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #cbd5e1;
+    }
+
+    .step-number {
+        background: var(--primary);
+        color: #000;
+        font-weight: 900;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        flex-shrink: 0;
+        box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .step-arrow {
+        color: var(--primary);
+        font-size: 14px;
+        margin: 4px 0;
+        opacity: 0.85;
+        text-shadow: 0 0 8px var(--primary-glow);
+    }
+
+    .step-item.highlight-step {
+        background: rgba(0, 255, 136, 0.08);
+        border-color: var(--success);
+        color: #fff;
+    }
+
+    .step-item.highlight-step .step-number {
+        background: var(--success);
+        box-shadow: 0 0 12px var(--success-glow);
+    }
+
+    /* CONTAINER DE VÍDEO NATIVO (GITHUB) - 100% RESPONSIVO */
+    .main-video {
+        width: 100%;
+        border-radius: 20px;
+        border: 1px solid var(--primary);
+        background: #000;
+        overflow: hidden;
+        margin-bottom: 24px;
+        box-shadow: 0 0 25px rgba(0, 194, 255, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main-video video {
+        width: 100%;
+        height: auto;
+        max-height: 70vh; /* Evita que o vídeo fique excessivamente longo em telas na vertical */
+        display: block;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    .btn-cta-group {
+        margin-bottom: 24px;
+    }
+
+    .btn-cta-green {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 900;
+        font-size: 16px;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #00ff88 0%, #00b862 100%);
+        color: #000;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.35);
+        transition: 0.3s ease;
+        border: none;
+        cursor: pointer;
+        animation: btnGreenGlow 2s infinite alternate;
+    }
+
+    @keyframes btnGreenGlow {
+        0% { transform: translateY(0); box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3); }
+        100% { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 255, 136, 0.6); }
+    }
+
+    .btn-cta-green:hover {
+        filter: brightness(1.15);
+    }
+
+    .btn-cta-green i {
+        font-size: 22px;
+    }
+
+    .btn-subtext {
+        display: block;
+        font-size: 12px;
+        color: var(--success);
+        margin-top: 10px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    .benefits-box {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 20px;
+        text-align: left;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #e2e8f0;
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    }
+
+    .benefit-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .benefit-item i {
+        color: var(--success);
+        font-size: 16px;
+    }
+
+    .faq-container {
+        text-align: left;
+    }
+
+    .faq-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 12px;
+        transition: 0.3s;
+    }
+
+    .faq-item:hover {
+        border-color: rgba(0, 194, 255, 0.4);
+    }
+
+    .faq-question {
+        font-weight: 800;
+        font-size: 14px;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-question i {
+        color: var(--primary);
+    }
+
+    .faq-answer {
+        font-size: 13px;
+        color: #94a3b8;
+        line-height: 1.6;
+        margin-top: 10px;
+    }
+
+    .footer {
+        margin-top: 28px;
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 600px) {
+        .container { padding: 16px 10px 30px; }
+        .main-card { padding: 24px 14px; }
+        .logo { font-size: 34px; }
+        .btn-cta-green { font-size: 14px; padding: 18px 12px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="main-card">
+        
+        <!-- CABEÇALHO -->
+        <div class="logo">MÉTODO <span>PRIME</span></div>
+        
+        <div class="tagline-group">
+            <div class="tagline-main">Aprenda Grátis. Lucre Primeiro.</div>
+            <div class="highlight-gold">⚡ PAGUE DEPOIS</div>
+        </div>
+
+        <div class="no-pay-badge">
+            <i class="fas fa-shield-alt"></i> 100% Sem pagamento antecipado
+        </div>
+
+        <!-- PILARES -->
+        <div class="grid-pillars">
+            <div class="pillar-box">
+                <i class="fas fa-gift"></i>
+                Comece Grátis
+            </div>
+            <div class="pillar-box">
+                <i class="fas fa-chart-line"></i>
+                Lucre Primeiro
+            </div>
+            <div class="pillar-box">
+                <i class="fas fa-handshake"></i>
+                Pague Depois
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- COMO FUNCIONA -->
+        <div class="section-title">COMO FUNCIONA</div>
+
+        <div class="steps-container">
+            <div class="step-item">
+                <span class="step-number">1</span>
+                <span>Aprende gratuitamente</span>
+            </div>
+            
+            <div style="text-align: center;"><i class="fas fa-chevron-down step-arrow"></i></div>
+
+            <div class="step-item">
+                <span class="step-number">2</span>
+                <span>Faz tudo na sua conta</span>
+            </div>
+
+            <div style="text-align: center;"><i class="fas fa-chevron-down step-arrow"></i></div>
+
+            <div class="step-item">
+                <span class="step-number">3</span>
+                <span>Obtém lucro</span>
+            </div>
+
+            <div style="text-align: center;"><i class="fas fa-chevron-down step-arrow"></i></div>
+
+            <div class="step-item highlight-step">
+                <span class="step-number">4</span>
+                <span>Compartilha apenas parte do primeiro lucro</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- VÍDEO HOSTEADO NO GITHUB -->
+        <div class="main-video">
+            <video controls playsinline preload="metadata">
+                <source src="Metodoprime(1)(1).mp4" type="video/mp4">
+                Seu navegador não suporta a exibição deste vídeo.
+            </video>
+        </div>
+
+        <!-- BOTÃO CTA NO VERDE DO WHATSAPP -->
+        <div class="btn-cta-group">
+            <a href="https://chat.whatsapp.com/FN0j2Q4BigsBlXPif8LJzg" target="_blank" class="btn-cta-green">
+                <i class="fab fa-whatsapp"></i> ENTRAR NO GRUPO GRATUITO
+            </a>
+            <span class="btn-subtext">
+                👉 Clique acima para entrar no grupo do WhatsApp e começar agora
+            </span>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- POR QUE CONFIAR? -->
+        <div class="section-title">POR QUE CONFIAR?</div>
+
+        <div class="benefits-box">
+            <div class="benefit-item"><i class="fas fa-check-circle"></i> Não cobramos nada antecipadamente</div>
+            <div class="benefit-item"><i class="fas fa-check-circle"></i> Risco Zero: Você só paga depois de lucrar</div>
+            <div class="benefit-item"><i class="fas fa-check-circle"></i> Suporte individual e acompanhamento</div>
+            <div class="benefit-item"><i class="fas fa-check-circle"></i> Método atualizado e testado</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- PERGUNTAS FREQUENTES -->
+        <div class="section-title">PERGUNTAS FREQUENTES</div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Preciso pagar algo antes de começar?</span>
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="faq-answer">
+                    Não! O acesso a todo o conteúdo é 100% gratuito. Você não coloca o seu cartão e nem faz nenhum PIX antecipado.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Quando e como eu realizo o pagamento?</span>
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="faq-answer">
+                    Você só compartilha a nossa porcentagem depois que o dinheiro já estiver no seu bolso/conta após o seu primeiro lucro.
+                </div>
+            </div>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer">
+            <p>&copy; Método Prime. Todos os direitos reservados.</p>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
